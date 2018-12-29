@@ -5,29 +5,44 @@ import { Button } from 'antd'
 
 import ApolloClient from "apollo-boost";
 import gql from "graphql-tag";
+import { stat } from 'fs';
 
 const client = new ApolloClient({
-  uri: "https://w5xlvm3vzz.lp.gql.zone/graphql"
+  uri: "http://localhost:3001/graphql"
 });
 
-const GQL = () => {
-    client
-    .query({
-        query: gql`
-        {
-            rates(currency: "USD") {
-            currency
-            }
+class GQL extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            re: 'init'
         }
-        `
-    })
-  .then(result => console.log(result));
+    }
 
-    return (
-        <div>
-            <Button type="primary">发起graphql请求</Button>
-        </div>
-    )
+    reqQL= () => {
+        client.query({
+                query: gql`
+                {
+                    hello
+                }
+                `
+            })
+            .then((result) => {
+                console.log(result);
+                this.setState({
+                    re: result.data.hello
+                })
+            });
+    }
+
+    render() {
+        return (  
+            <div>
+                <h2>{ this.state.re }</h2>
+                <Button type="primary" onClick={this.reqQL}>发起graphql请求</Button>
+            </div>
+        )
+    }
 }
 
 export default connect()(GQL)
