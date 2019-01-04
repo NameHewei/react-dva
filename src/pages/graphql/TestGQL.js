@@ -39,7 +39,7 @@ class GQL extends React.Component {
         return (  
             <div>
                 <h2>{ this.state.re }</h2>
-                <Button type="primary" onClick={this.reqQL}>发起graphql请求  dajiahao</Button>
+                <Button type="primary" onClick={this.reqQL}>发起graphql请求  dajiahao 123456</Button>
             </div>
         )
     }
